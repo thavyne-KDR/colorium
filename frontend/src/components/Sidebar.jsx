@@ -10,14 +10,17 @@ const Sidebar = () => {
       display: 'flex', 
       flexDirection: 'column', 
       justifyContent: 'space-between',
-      borderRight: '1px solid #E5E7EB'
+      borderRight: '1px solidrgb(198, 198, 198)'
     }}>
       
-      {/* Topo */}
+      {/*Topo com logo*/}
       <div>
-        {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#333' }}>Colorimetr<span className="gradient-text">IA</span></h2>
+        <div style={{ marginBottom: '32px' }}>
+            <img 
+              src="/Colorimetr.png"
+              alt="ColorimetrIA Logo" 
+              style={{ height: '100px', display: 'block' }} 
+            />
         </div>
 
         {/* Botão New Chat */}
