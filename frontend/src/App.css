@@ -1,7 +1,7 @@
 /* src/App.css */
 :root {
   /* O gradiente oficial do seu projeto: Vermelho -> Laranja -> Amarelo -> Verde -> Roxo */
-  --rainbow-gradient: linear-gradient(90deg, #FF4D4D, #F9CB28, #79E0EE, #7F5AF0);
+  --rainbow-gradient: linear-gradient(90deg, #ff5959, #F9CB28, #79E0EE, #7F5AF0);
   --bg-sidebar: #F3F4F6;
   --text-primary: #1F2937;
   --text-secondary: #9CA3AF;
@@ -45,7 +45,7 @@ body, html, #root {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: rgb(173, 173, 173);
   cursor: pointer;
   transition: transform 0.2s;
 }

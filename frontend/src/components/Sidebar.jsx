@@ -1,37 +1,82 @@
 import React from 'react';
-import { Settings, LifeBuoy, Plus, MessageSquare, ChevronRight } from 'lucide-react';
+import { Settings, LifeBuoy, Plus, MessageSquare, ChevronRight, PanelLeftClose } from 'lucide-react';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
     <div style={{ 
-      width: '280px', 
-      background: '#F3F4F6', 
-      padding: '24px', 
-      display: 'flex', 
-      flexDirection: 'column', 
+      width: isOpen ? '280px' : '0', 
+      opacity: isOpen ? 1 : 0,
+      visibility: isOpen ? 'visible' : 'hidden', 
+      transition: 'all 0.4s ease', 
+      background: '#F3F4F6',
+      borderRight: '1px solid rgba(187, 187, 187, 0.5)',
+      overflow: 'hidden', 
+      whiteSpace: 'nowrap', 
+      display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'space-between',
-      borderRight: '1px solidrgb(198, 198, 198)'
+      position: 'relative' 
     }}>
+    <div style={{ width: '280px',
+      padding: '24px',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0 }}></div>
       
       {/*Topo com logo*/}
-      <div>
-        <div style={{ marginBottom: '32px' }}>
+    <div>
+      <div style={{ 
+            display: 'flex',             // Alinha um ao lado do outro
+            alignItems: 'center',        // Centraliza verticalmente (fio do meio)
+            justifyContent: 'space-between',
+            marginBottom: '24px'
+        }}>
+            
+            {/* A LOGO */}
             <img 
-              src="/Colorimetr.png"
+              src="/Colorimetr.png" 
               alt="ColorimetrIA Logo" 
-              style={{ height: '100px', display: 'block' }} 
+              style={{ 
+                  height: '80px',        // Define altura fixa (largura se ajusta sozinha)
+                  width: 'auto',         // Mantém a proporção
+                  display: 'block',
+              }} 
             />
+            {/* Botão de Fechar Sidebar */}
+            <button 
+                onClick={toggleSidebar} 
+                style={{ 
+                    background: 'transparent', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    color: '#6B7280',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '8px',
+                    borderRadius: '50%',
+                    transition: 'background 0.2s'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.background = '#E5E7EB'}
+                onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+            >
+              <PanelLeftClose size={24} />
+            </button>
         </div>
 
-        {/* Botão New Chat */}
+        {/* Botão New Chat (Fica logo abaixo do cabeçalho) */}
         <button style={{ 
-            width: '100%', padding: '12px 20px', borderRadius: '99px', border: 'none', 
+            width: '80%', padding: '10px 40px', borderRadius: '99px', border: 'none', 
             background: '#BFBFBF', color: 'white', cursor: 'pointer', 
-            display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '600',
-            boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-            justifyContent: 'center'
+            display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '600',
+            boxShadow: '0 2px 5px rgba(218, 218, 218, 0.69)'
         }}>
-          <Plus size={20} /> New chat
+          <Plus size={25} /> New chat
         </button>
 
         {/* Histórico */}
@@ -62,20 +107,7 @@ const Sidebar = () => {
             <LifeBuoy size={18} /> Support
         </div>
         {/* Perfil do Usuário */}
-        <div style={{ borderTop: '1px solid #E5E7EB', paddingTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#EF4444', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', overflow: 'hidden' }}>
-                    {/* Aqui entraria a foto, usei um placeholder */}
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ana" alt="User" style={{width: '100%'}} />
-                </div>
-                {/* Nome e Email */}
-                <div>
-                    <p style={{ fontSize: '0.9rem', fontWeight: '700', color: '#1F2937' }}>Ana Lívia</p>
-                    <p style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>analiv@gmail.com</p>
-                </div>
-            </div>
-            <ChevronRight size={16} color="#9CA3AF"/>
-        </div>
+        
       </div>
 
     </div>

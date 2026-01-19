@@ -1,10 +1,35 @@
 import React from 'react';
-import { Paperclip, ArrowUp } from 'lucide-react';
+import { Paperclip, ArrowUp, PanelLeftOpen } from 'lucide-react';
 
-const MainChat = () => {
+
+const MainChat = ({ isSidebarOpen, toggleSidebar }) => {
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-      
+        <div style={{ 
+            flex: 1, 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            padding: '0 10%',
+            position: 'relative' // Necessário para posicionar o botão de abrir
+        }}>
+        {!isSidebarOpen && (
+        <button 
+            onClick={toggleSidebar}
+            style={{
+                position: 'absolute',
+                top: '20px',
+                left: '20px',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                color: '#6B7280'
+            }}
+        >
+            <PanelLeftOpen size={28} />
+        </button>
+      )}
+             
       {/* Texto de Boas Vindas */}
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: '#333', fontWeight: '700' }}>
