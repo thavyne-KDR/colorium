@@ -1,6 +1,5 @@
 /* src/App.css */
 :root {
-  /* O gradiente oficial do seu projeto: Vermelho -> Laranja -> Amarelo -> Verde -> Roxo */
   --rainbow-gradient: linear-gradient(90deg, #ff5959, #F9CB28, #79E0EE, #7F5AF0);
   --bg-sidebar: #F3F4F6;
   --text-primary: #1F2937;
@@ -11,7 +10,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif; /* A fonte nova aqui */
+  font-family: 'Poppins', sans-serif; 
 }
 
 body, html, #root {
@@ -26,16 +25,16 @@ body, html, #root {
   width: 100vw;
 }
 
-/* Texto Gradiente (Colorimetr-IA) */
+/* texto WELCOME  */
 .gradient-text {
   background: var(--rainbow-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-weight: 700; /* Mais grosso igual a imagem */
+  font-weight: 700; 
 }
 
-/* Botão de Enviar (Gradiente Redondo) */
+/* botão de enviar  */
 .send-btn-gradient {
   background: var(--rainbow-gradient);
   border: none;
