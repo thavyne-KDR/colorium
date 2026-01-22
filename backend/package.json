@@ -11,6 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@fastify/cors": "^11.2.0",
     "@fastify/jwt": "^10.0.0",
     "@fastify/postgres": "^6.0.2",
     "@google/generative-ai": "^0.24.1",
@@ -18,8 +19,6 @@
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "fastify": "^5.7.1",
-    "openai": "^6.16.0",
-
-    "pg": "^8.17.1"
+    "pg": "^8.17.2"
   }
 }
