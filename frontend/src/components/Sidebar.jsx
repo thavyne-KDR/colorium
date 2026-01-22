@@ -49,7 +49,7 @@ const Sidebar = ({isOpen, toggleSidebar}) => {
                   display: 'block',
               }} 
             />
-            {/* botão de fechar sidebar */}
+            {/* sidebar (botão de fechar)*/}
             <button 
                 onClick={toggleSidebar} 
                 style={{ 
