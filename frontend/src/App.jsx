@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import MainChat from './components/MainChat';
+import Auth from './components/Auth'; 
 import './App.css';
 import { listPalettes, updatePalette, deletePalette, getPalette } from './services/api';
 
 function App() {
+  const [user, setUser] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [history, setHistory] = useState([]); // [{id, prompt}]
   const [selected, setSelected] = useState(null); // {id, prompt, colors}
+  const handleLogout = () => {
+    setUser(null); // Limpa o usuário, voltando para a tela de Login
+    setSelected(null);
+  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev);
@@ -15,8 +21,10 @@ function App() {
 
   // 🔹 Carrega histórico do backend ao abrir o site
   useEffect(() => {
-    refreshHistory();
-  }, []);
+    if (user){
+      refreshHistory();
+    }
+  }, [user]);
 
   const refreshHistory = async () => {
     try {
@@ -81,6 +89,9 @@ function App() {
       console.error('Falha ao carregar paleta:', e);
     }
   };
+  if (!user) {
+    return <Auth onLogin={(userData) => setUser(userData)} />;
+  }
 
   return (
     <div className="app-container">
@@ -90,6 +101,9 @@ function App() {
         history={history}
         onDelete={handleDeleteFromHistory}
         onUpdate={handleUpdateFromHistory}
+        userName={user.name} 
+        userEmail={user.email}
+        onLogout={handleLogout}
       />
 
       <MainChat

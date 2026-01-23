@@ -53,3 +53,9 @@ body, html, #root {
 .send-btn-gradient:hover {
   transform: scale(1.05);
 }
+input::placeholder {
+  color: #9CA3AF;
+}
+input:focus {
+  border-color: #7F5AF0;
+}
