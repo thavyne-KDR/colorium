@@ -92,8 +92,10 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        padding: '40px 10%',
+        padding: '40px 10% 80px',
         position: 'relative',
+        height: '100vh',
+        boxSizing: 'border-box'
       }}
     >
       {/* BOTÃO SIDEBAR */}
@@ -115,7 +117,7 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes
             cursor: 'pointer',
           }}
         >
-          <PanelLeftOpen size={24} />
+          <PanelLeftOpen size={24} color="#4B5563"/>
         </button>
       )}
 
@@ -128,6 +130,7 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes
           justifyContent: 'center',
           flexDirection: 'column',
           textAlign: 'center',
+          width: '100%'
         }}
       >
         {!hasStartedChat ? (
@@ -141,13 +144,13 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes
             </p>
           </>
         ) : (
-          <>
-            {/* PROMPT DIGITADO (igual chat) */}
+          <div style={{ width: '100%', maxWidth: '800px' }}>
+          {/* PROMPT DIGITADO (igual chat) */}
             <p
               style={{
                 color: '#111',
-                fontSize: '1.1rem',
-                marginBottom: '12px',
+                fontSize: '1.2rem',
+                marginBottom: '20px',
                 fontWeight: 500,
               }}
             >
@@ -163,7 +166,16 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes
 
             {/* ERRO */}
             {error && (
-              <p style={{ color: 'red', fontSize: '1.05rem' }}>{error}</p>
+              <div style={{ 
+                  background: '#FEE2E2', 
+                  color: '#991B1B', 
+                  padding: '10px 20px', 
+                  borderRadius: '10px',
+                  display: 'inline-block',
+                  marginTop: '10px'
+              }}>
+                 ⚠️ {error}
+              </div>
             )}
 
             {/* PALETA */}
@@ -173,6 +185,8 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes
                   display: 'flex',
                   gap: '18px',
                   marginTop: '20px',
+                  justifyContent : 'center',
+                  flexWrap: 'wrap',
                 }}
               >
                 {colors.map((c, i) => (
@@ -187,12 +201,15 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes
                       background: c.hex,
                       cursor: 'pointer',
                       boxShadow: '0 6px 20px rgba(0,0,0,0.15)',
+                      transition: 'transform 0.2s'
                     }}
+                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                   />
                 ))}
               </div>
             )}
-          </>
+          </div>
         )}
       </div>
 
@@ -200,14 +217,14 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes
       <div
         style={{
           width: '100%',
-          maxWidth: '600px',
+          maxWidth: '800px',
           margin: '0 auto',
-          background:
-            'linear-gradient(#fff, #fff) padding-box, var(--rainbow-gradient) border-box',
+          background:'linear-gradient(#fff, #fff) padding-box, var(--rainbow-gradient) border-box',
           border: '2px solid transparent',
           borderRadius: '20px',
           padding: '20px',
           boxShadow: '0 10px 30px -10px rgba(0,0,0,0.1)',
+          flexShrink: 0,
         }}
       >
         <textarea
@@ -256,7 +273,7 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes
            display: 'flex',
            alignItems: 'center',
            justifyContent: 'center',
-         padding: 0,
+           padding: 0,
        }}
       >
          <ArrowUp
