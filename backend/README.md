@@ -100,7 +100,8 @@ backend/
 
 ## ⚙️ Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do backend:
+Crie um arquivo `.env` na raiz de `backend/` (mesmo nível de `package.json`).
+Você pode usar o `.env.example` como base:
 
 ```env
 PORT=3333
@@ -125,6 +126,13 @@ npm install
 ### 2️⃣ Iniciar o banco PostgreSQL
 
 Certifique-se de que o PostgreSQL esteja **rodando** e que o banco exista.
+
+Crie as tabelas necessárias (uma vez):
+
+```sql
+-- No psql ou seu cliente SQL
+\i ./src/sql/schema.sql
+```
 
 ### 3️⃣ Rodar o Ollama
 
@@ -165,6 +173,32 @@ Gera uma nova paleta de cores com base no prompt do usuário.
 ### 🔹 `GET /palettes`
 
 Retorna o histórico de paletas geradas.
+
+### 🔹 `GET /palette/:id`
+
+Retorna uma paleta específica pelo seu `id`.
+
+### 🔹 `PUT /palette/:id`
+
+Atualiza uma paleta existente. Envie qualquer campo que deseja alterar.
+
+Body (JSON):
+
+```json
+{
+  "prompt": "nova descrição opcional",
+  "colors": [
+    { "name": "Primary", "hex": "#AABBCC" },
+    { "name": "Secondary", "hex": "#DDEEFF" },
+    { "name": "Accent", "hex": "#112233" },
+    { "name": "Background", "hex": "#445566" }
+  ]
+}
+```
+
+### 🔹 `DELETE /palette/:id`
+
+Remove uma paleta pelo `id`.
 
 ---
 

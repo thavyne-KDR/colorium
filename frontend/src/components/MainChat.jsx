@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Paperclip, PanelLeftOpen, ArrowUp } from 'lucide-react';
+import { createPalette, updatePalette, deletePalette } from '../services/api';
 
-const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt }) => {
+const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt, onChangedPalettes, selected }) => {
   const [message, setMessage] = useState('');
   const [hasStartedChat, setHasStartedChat] = useState(false);
   const [colors, setColors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastPrompt, setLastPrompt] = useState('');
   const [error, setError] = useState('');
+  const [currentRecord, setCurrentRecord] = useState(null);
+
+  // Carrega paleta selecionada via Sidebar
+  useEffect(() => {
+    if (!selected) return;
+    try {
+      const colorsArr = Array.isArray(selected.colors) ? selected.colors : JSON.parse(selected.colors || '[]');
+      setColors(colorsArr || []);
+      setLastPrompt(selected.prompt || '');
+      setCurrentRecord({ id: selected.id, prompt: selected.prompt, colors: colorsArr });
+      setHasStartedChat(true);
+      setError('');
+    } catch (e) {
+      console.error('Falha ao carregar paleta selecionada:', e);
+    }
+  }, [selected]);
 
   const handleSend = async () => {
     if (!message.trim()) return;
@@ -19,27 +36,54 @@ const MainChat = ({ isSidebarOpen, toggleSidebar, onNewPrompt }) => {
     setLastPrompt(message);
 
     try {
-      const res = await fetch('http://localhost:3333/palette', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: message }),
-      });
-
-      const data = await res.json();
+      const data = await createPalette(message);
 
       if (data?.palette && data.palette.length > 0) {
         setColors(data.palette);
-        onNewPrompt(message);
+        setCurrentRecord(data.record ?? null);
+        onNewPrompt({ id: data.record?.id, prompt: message });
       } else {
         setError('Nenhuma paleta foi gerada.');
       }
     } catch (err) {
       console.error(err);
-      setError('Erro ao gerar paleta.');
+      const serverMsg = err?.response?.data?.message;
+      setError(serverMsg || 'Erro ao gerar paleta.');
     }
 
     setLoading(false);
     setMessage('');
+  };
+
+  const handleDelete = async () => {
+    if (!currentRecord?.id) return;
+    try {
+      await deletePalette(currentRecord.id);
+      setCurrentRecord(null);
+      setColors([]);
+      setError('Paleta removida.');
+      if (typeof onChangedPalettes === 'function') onChangedPalettes();
+    } catch (e) {
+      console.error(e);
+      setError('Falha ao deletar paleta.');
+    }
+  };
+
+  const handleUpdate = async () => {
+    if (!currentRecord?.id) return;
+    const novoPrompt = window.prompt('Novo prompt da paleta:', lastPrompt);
+    if (!novoPrompt || novoPrompt.trim() === '') return;
+
+    try {
+      const result = await updatePalette(currentRecord.id, { prompt: novoPrompt, colors });
+      setLastPrompt(result?.palette?.prompt ?? novoPrompt);
+      setCurrentRecord(result?.palette ? result.palette : currentRecord);
+      setError('Paleta atualizada.');
+      if (typeof onChangedPalettes === 'function') onChangedPalettes();
+    } catch (e) {
+      console.error(e);
+      setError('Falha ao atualizar paleta.');
+    }
   };
 
   return (

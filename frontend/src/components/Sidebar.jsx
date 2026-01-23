@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Settings,
   LifeBuoy,
   Plus,
   MessageSquare,
   PanelLeftClose,
+  X
 } from 'lucide-react';
 
-const Sidebar = ({ isOpen, toggleSidebar, history = [] }) => {
+const Sidebar = ({ isOpen, toggleSidebar, history = [], onDelete, onUpdate }) => {
+  const [hoveredKey, setHoveredKey] = useState(null);
+
+  const handleDelete = (e, item) => {
+    e.stopPropagation();
+    if (typeof onDelete === 'function') onDelete(item);
+  };
+
+  const handleUpdate = (item) => {
+    if (typeof onUpdate === 'function') onUpdate(item);
+  };
+
   return (
     <div
       style={{
@@ -95,24 +107,52 @@ const Sidebar = ({ isOpen, toggleSidebar, history = [] }) => {
           HISTORY
         </p>
 
-        {history.map((item, index) => (
+        {history.map((item) => {
+          const key = item?.id ?? item?.prompt ?? String(item);
+          return (
           <div
-            key={index}
+            key={key}
+            onMouseEnter={() => setHoveredKey(key)}
+            onMouseLeave={() => setHoveredKey(null)}
+            onClick={() => handleUpdate(item)}
             style={{
               display: 'flex',
               gap: '10px',
-              alignItems: 'flex-start',
+              alignItems: 'center',
               color: '#fff',
-              marginBottom: '14px',
+              marginBottom: '12px',
               fontSize: '0.9rem',
               cursor: 'pointer',
               lineHeight: '1.4',
+              justifyContent: 'space-between'
             }}
           >
-            <MessageSquare size={16} />
-            <span>{item}</span>
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flex: 1, minWidth: 0 }}>
+              <MessageSquare size={16} />
+              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {item.prompt ?? String(item)}
+              </span>
+            </div>
+            <button
+              onClick={(e) => handleDelete(e, item)}
+              title="Excluir"
+              style={{
+                visibility: hoveredKey === key ? 'visible' : 'hidden',
+                background: 'transparent',
+                border: 'none',
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 0,
+                width: '24px',
+                height: '24px'
+              }}
+            >
+              <X size={16} />
+            </button>
           </div>
-        ))}
+        )})}
       </div>
 
       {/* ===== RODAPÉ FIXO ===== */}
