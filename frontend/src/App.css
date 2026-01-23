@@ -1,0 +1,55 @@
+/* src/App.css */
+:root {
+  --rainbow-gradient: linear-gradient(90deg, #ff5959, #F9CB28, #79E0EE, #7F5AF0);
+  --bg-sidebar: #F3F4F6;
+  --text-primary: #1F2937;
+  --text-secondary: #9CA3AF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif; 
+}
+
+body, html, #root {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* texto WELCOME  */
+.gradient-text {
+  background: var(--rainbow-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700; 
+}
+
+/* botão de enviar  */
+.send-btn-gradient {
+  background: var(--rainbow-gradient);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(173, 173, 173);
+  cursor: pointer;
+  transition: transform 0.2s;
+  overflow: visible;
+}
+
+.send-btn-gradient:hover {
+  transform: scale(1.05);
+}
