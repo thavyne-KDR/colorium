@@ -98,8 +98,8 @@ ollama run gemma:2b
 
 
 ### ⚙️ Variáveis de Ambiente
-```bash
-Crie um arquivo chamado `.env` dentro da pasta `backend` e configure as seguintes variáveis:
+
+##### Crie um arquivo chamado `.env` dentro da pasta `backend` e configure as seguintes variáveis:
 
 | Variável | Descrição | Exemplo Padrão |
 | :--- | :--- | :--- |
@@ -109,7 +109,7 @@ Crie um arquivo chamado `.env` dentro da pasta `backend` e configure as seguinte
 | `DB_USER` | Usuário do banco | `postgres` |
 | `DB_PASSWORD` | Senha do seu banco local | `admin` (ou sua senha) |
 | `DB_NAME` | Nome do banco de dados | `colorimetria` |
-```
+
 
 ---
 
@@ -172,4 +172,5 @@ Projeto desenvolvido para a disciplina de Desenvolvimento Web.
 Ana Lívia Farias Silva - Frontend & Integração
 
 Thávyne Kerolly Dias Ribeiro - Backend & Arquitetura de IA
+
 
